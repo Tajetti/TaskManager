@@ -43,4 +43,15 @@ public class TarefaService {
         }
         return deletou;
     }
+
+    public void atualizarTarefa(int id, String titulo, String descricao) {
+        if (titulo == null || titulo.isBlank()) {
+            throw new IllegalArgumentException("O titulo não pode esta vazio!");
+        }
+        tarefaDAO.atualizar(id, titulo, descricao);
+    }
+
+    public void atualizarStatus(int id, StatusTarefa status) {
+        tarefaDAO.atualizarStatus(status, id);
+    }
 }

@@ -14,6 +14,29 @@ import br.com.tajetti.Model.Entity.StatusTarefa;
 
 public class TarefaDAO {
     
+    public TarefaDAO() {
+        criarTabelaSeNaoExistir();
+    }
+
+    private void criarTabelaSeNaoExistir() {
+        String sql = """
+            CREATE TABLE IF NOT EXISTS tarefas (
+                id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                titulo VARCHAR(255) NOT NULL,
+                descricao TEXT,
+                status VARCHAR(50) DEFAULT 'PENDENTE',
+                criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+            """;
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao criar tabela", e);
+        }
+    }
+
     public void salvar(Tarefa tarefa) {
         String sql = "INSERT INTO tarefas (titulo, descricao, status, criado_em) VALUES (?, ?, ?, ?)";
 
@@ -102,6 +125,23 @@ public class TarefaDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar status da tarefa", e);
 
+        }
+    }
+
+    public void atualizar(int id, String titulo, String descricao) {
+        String sql = "UPDATE tarefas SET titulo = ?, descricao = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, titulo);
+            ps.setString(2, descricao);
+            ps.setInt(3, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar tarefa", e);
         }
     }
 

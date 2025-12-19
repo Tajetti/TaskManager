@@ -7,10 +7,10 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 
     private static final String URL =
-            "jdbc:postgresql://localhost:5432/tododb";
+            "jdbc:h2:~/tododb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE";
 
-    private static final String USUARIO = "todo_user";
-    private static final String SENHA = "todo_pass";
+    private static final String USUARIO = "sa";
+    private static final String SENHA = "";
 
     private ConnectionFactory() {}
 

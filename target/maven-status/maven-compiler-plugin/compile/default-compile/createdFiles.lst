@@ -1,0 +1,8 @@
+br/com/tajetti/Model/Entity/StatusTarefa.class
+br/com/tajetti/Main.class
+br/com/tajetti/Model/Entity/Tarefa.class
+br/com/tajetti/Model/DAO/TarefaDAO.class
+br/com/tajetti/View/MainView.class
+br/com/tajetti/Controller/TarefaController.class
+br/com/tajetti/Service/TarefaService.class
+br/com/tajetti/Model/Database/ConnectionFactory.class

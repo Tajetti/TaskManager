@@ -1,9 +1,10 @@
 package br.com.tajetti.Controller;
 
+import br.com.tajetti.Model.Entity.StatusTarefa;
 import br.com.tajetti.Model.Entity.Tarefa;
 import br.com.tajetti.Service.TarefaService;
 
-import java.util.Optional;
+import java.util.List;
 
 public class TarefaController {
 
@@ -27,6 +28,10 @@ public class TarefaController {
         tarefaService.listarTodas();
     }
 
+    public List<Tarefa> listar() {
+        return tarefaService.listarTodas();
+    }
+
     public void criarTarefa(String titulo, String descricao) {
         try {
             tarefaService.criarTarefa(titulo, descricao);
@@ -44,5 +49,19 @@ public class TarefaController {
         } else {
             System.out.println("❌ Tarefa não encontrada");
         }
+    }
+
+    public void atualizarTarefa(int id, String titulo, String descricao) {
+        try {
+            tarefaService.atualizarTarefa(id, titulo, descricao);
+            System.out.println("✅ Tarefa atualizada com sucesso");
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Erro: " + e.getMessage());
+        }
+    }
+
+    public void marcarComoConcluida(int id) {
+        tarefaService.atualizarStatus(id, StatusTarefa.CONCLUIDA);
+        System.out.println("✅ Tarefa marcada como concluída");
     }
 }
